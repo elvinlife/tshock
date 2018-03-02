@@ -4,7 +4,7 @@ author:@cyz
 time:since 2018/2/2
 """
 import numpy as np
-from .private import _make_tuple
+from .type import _make_tuple
 
 class AbsFileDataSrc(object):
     def load(self):

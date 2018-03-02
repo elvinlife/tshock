@@ -9,3 +9,5 @@ from .widget import *
 from .evaluators import *
 from .data import *
 from .initializer import *
+from . import image
+from .type import *

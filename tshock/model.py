@@ -4,7 +4,7 @@ author:@elvinlife
 time:since 2018/2/7
 """
 from .widget import Widget
-from .private import _make_tuple
+from .type import _make_tuple
 
 class Slot(object):
     def __init__(self,
@@ -28,7 +28,6 @@ class Slot(object):
         self._updates = _make_tuple(updates)
         self._runnables = _make_tuple([i for i in self._outputs] + [j for j in self._updates])
         self._outputs_len = len(self._outputs)
-        print(self._runnables)
 
     def run(self, *args):
         """
@@ -37,7 +36,6 @@ class Slot(object):
         :return:
         """
         if len(args) != len(self._inputs):
-            print((len(args), len(self._inputs)))
             raise ValueError('The data number and the placeholder number must be same.')
         outputs = self._sess.run(self._runnables,feed_dict = {input: args[i] for i, input in enumerate(self._inputs)})
         return outputs[:self._outputs_len]
@@ -45,11 +43,7 @@ class Slot(object):
 class AbsModel(Widget):
     def __init__(self,
                  name,
-                 session,
-                 gpu_opiton_allow_growth = True,
-                 log_device_placement = False,
-                 allow_soft_placement = True,
-                 tensorboard_port=6066):
+                 session):
         """
         Model derive from widget(to manage variable scope) and is automatically set up.
         You must design your own Model derived from AbsModel by overriding _setup() method.
